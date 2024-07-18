@@ -1,0 +1,51 @@
+{
+  "name": "vue3-ui-template",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "clear": "rimraf ./packages/vue/dist",
+    "build": "pnpm run clear && pnpm -r --filter=./packages/** run build",
+    "dev:pg:nuxt": "pnpm run clear && pnpm -r --filter=./playground/nuxt-project run dev",
+    "dev:pg:vue": "pnpm run clear && pnpm -r --filter=./playground/vite-project run dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "npx simple-git-hooks",
+    "changeset": "changeset",
+    "vp": "changeset version",
+    "release": "pnpm build && pnpm release:only",
+    "release:only": "changeset publish",
+    "docs:dev": "pnpm -r --filter=./docs run docs:dev",
+    "docs:build": "pnpm -r --filter=./docs run docs:build",
+    "docs:preview": "pnpm -r --filter=./docs run docs:preview",
+    "test": "pnpm -r --filter=./packages/** run test"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.1",
+    "@changesets/cli": "^2.27.5",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/node": "^20.14.7",
+    "commitlint": "^19.3.0",
+    "eslint": "^9.5.0",
+    "jsdom": "^24.1.0",
+    "lint-staged": "^15.2.7",
+    "rimraf": "^5.0.7",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.5.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit ${1}"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
